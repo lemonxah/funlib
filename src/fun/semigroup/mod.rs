@@ -13,6 +13,12 @@ impl Semigroup for i8 {
   }
 }
 
+impl Semigroup for i16 {
+  fn mappend(self: &Self, other: &Self) -> Self {
+    self + other
+  }
+}
+
 impl Semigroup for i32 {
   fn mappend(self: &Self, other: &Self) -> Self {
     self + other
@@ -26,6 +32,12 @@ impl Semigroup for i64 {
 }
 
 impl Semigroup for u8 {
+  fn mappend(self: &Self, other: &Self) -> Self {
+    self + other
+  }
+}
+
+impl Semigroup for u16 {
   fn mappend(self: &Self, other: &Self) -> Self {
     self + other
   }

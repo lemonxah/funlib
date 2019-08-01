@@ -6,6 +6,12 @@ impl Monoid for i8 {
   }
 }
 
+impl Monoid for i16 {
+  fn mempty() -> Self {
+    0
+  }
+}
+
 impl Monoid for i32 {
   fn mempty() -> Self {
     0
@@ -19,6 +25,12 @@ impl Monoid for i64 {
 }
 
 impl Monoid for u8 {
+  fn mempty() -> Self {
+    0
+  }
+}
+
+impl Monoid for u16 {
   fn mempty() -> Self {
     0
   }
