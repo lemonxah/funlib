@@ -10,6 +10,7 @@ pub trait HKT<B> {
   type M; // Type A swapped with B
 }
 
+#[macro_export]
 macro_rules! derive_hkt {
   ($t:ident) => {
     impl<B, C> HKT<C> for $t<B> {
@@ -53,6 +54,7 @@ pub trait Monoid: Semigroup {
 }
 
 #[allow(unused_macros)]
+#[macro_export]
 macro_rules! compose {
     ( $last:expr ) => { $last };
     ( $head:expr, $($tail:expr), +) => {

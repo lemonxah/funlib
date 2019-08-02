@@ -43,7 +43,7 @@ mod test {
   #[macro_use]
   #[cfg(test)]
   mod laws {
-    use crate::fun::*;
+    use crate::fun::compose_two;
     use crate::fun::Functor;
     use std::rc::Rc;
     use std::boxed::Box;
