@@ -1,9 +1,13 @@
 [package]
 name = "funlib"
+description = "Rust functional library"
 version = "0.1.0"
 authors = ["lemonxah <lemon.xah@gmail.com>"]
 edition = "2018"
-
+license = "Apache-2.0"
+homepage = "https://github.com/lemonxah/funlib"
+documentation = "https://github.com/lemonxah/funlib"
+repository = "https://github.com/lemonxah/funlib"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
