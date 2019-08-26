@@ -3,31 +3,31 @@ use crate::{FoldableB, FoldableA};
 impl <A, B> FoldableB<B> for Vec<A> {
   fn fold_right<F>(&self, z: B, f: F) -> B where F: Fn(&Self::A, B) -> B {
     let mut r: B = z;
-    for x in self.into_iter().rev() {
+    for x in self.iter().rev() {
       r = f(x, r);
     }
     r
   }
   fn fold_left<F>(&self, z: B, f: F) -> B where F: Fn(B, &Self::A) -> B {
-    self.into_iter().fold(z, f)
+    self.iter().fold(z, f)
   }
 }
 
 impl <'r,A: 'r> FoldableA<'r, A> for Vec<A> {
   fn fold<F>(self: &'r Self, z: A, f: F) -> A where F: FnMut(A, &A) -> A {
-    self.into_iter().fold(z, f)
+    self.iter().fold(z, f)
   }
   fn all<F>(&self, f: F) -> bool where F: Fn(&A) -> bool {
-    self.into_iter().all(f)
+    self.iter().all(f)
   }
   fn any<F>(&self, f: F) -> bool where F: Fn(&A) -> bool {
-    self.into_iter().any(f)
+    self.iter().any(f)
   }
   fn filter<F>(self: &'r Self, f: F) -> Self::M where F: Fn(&A) -> bool {
-    self.into_iter().filter(|a| f(a)).collect()
+    self.iter().filter(|a| f(a)).collect()
   }
   fn find<F>(self: &'r Self, f: F) -> Option<&A> where F: Fn(&A) -> bool {
-    self.into_iter().find(|a| f(a))
+    self.iter().find(|a| f(a))
   }
   fn is_empty(&self) -> bool { self.is_empty() }
 }

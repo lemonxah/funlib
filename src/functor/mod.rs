@@ -5,9 +5,9 @@ use std::rc::Rc;
 
 impl<A,B> Functor<B> for Option<A> {
   fn fmap<F>(&self, f: F) -> Option<B> where F: Fn(&A) -> B {
-    match self{
-      &Some(ref a) => Some(f(a)),
-      &None => None,
+    match *self{
+      Some(ref a) => Some(f(a)),
+      None => None,
     }
   }
 }

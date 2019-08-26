@@ -4,9 +4,9 @@ use std::rc::Rc;
 
 impl<A, B> Monad<B> for Option<A> {
   fn bind<F>(&self, mut f: F) -> Option<B> where F: FnMut(&A) -> Option<B> {
-    match self {
-      &Some(ref a) => f(a),
-      &None => None,
+    match *self {
+      Some(ref a) => f(a),
+      None => None,
     }
   }
 }
