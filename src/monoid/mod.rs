@@ -1,4 +1,4 @@
-use crate::fun::Monoid;
+use crate::Monoid;
 
 impl Monoid for i8 {
   fn mempty() -> Self {
@@ -68,12 +68,12 @@ impl<'a> Monoid for &'a str {
 
 #[cfg(test)]
 mod test {
-  use crate::fun::Monoid;
+  use crate::Monoid;
 
   #[cfg(test)]
   mod laws {
-    use crate::fun::Monoid;
-    use crate::fun::Semigroup;
+    use crate::Monoid;
+    use crate::Semigroup;
 
     macro_rules! laws {
       ($t: ident, $v: expr, $v2: expr, $v3: expr) => {

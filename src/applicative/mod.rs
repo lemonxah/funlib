@@ -1,5 +1,5 @@
-use crate::fun::Applicative;
-use crate::fun::HKT;
+use crate::Applicative;
+use crate::HKT;
 use std::rc::Rc;
 
 impl<A, B> Applicative<B> for Option<A> {
@@ -51,7 +51,7 @@ impl<A, B> Applicative<B> for Vec<A> {
 
 #[cfg(test)]
 mod test {
-  use crate::fun::Applicative;
+  use crate::Applicative;
   use std::rc::Rc;
 
   #[test]

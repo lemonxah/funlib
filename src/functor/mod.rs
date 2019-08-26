@@ -1,4 +1,4 @@
-use crate::fun::Functor;
+use crate::Functor;
 use std::vec::Vec;
 use std::boxed::Box;
 use std::rc::Rc;
@@ -36,15 +36,15 @@ impl<A,B> Functor<B> for Vec<A> {
 #[macro_use]
 #[cfg(test)]
 mod test {
-  use crate::fun::Functor;
+  use crate::Functor;
   use std::rc::Rc;
   use std::boxed::Box;
 
   #[macro_use]
   #[cfg(test)]
   mod laws {
-    use crate::fun::compose_two;
-    use crate::fun::Functor;
+    use crate::compose_two;
+    use crate::Functor;
     use std::rc::Rc;
     use std::boxed::Box;
     fn id<A>(v: A) -> A { v } 

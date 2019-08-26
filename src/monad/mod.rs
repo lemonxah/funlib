@@ -1,4 +1,4 @@
-use crate::fun::Monad;
+use crate::Monad;
 use std::boxed::Box;
 use std::rc::Rc;
 
@@ -35,7 +35,7 @@ impl<A, B> Monad<B> for Vec<A> {
 
 #[cfg(test)]
 mod test {
-  use crate::fun::Monad;
+  use crate::Monad;
   use std::rc::Rc;
 
   #[test]

@@ -1,4 +1,4 @@
-use crate::fun::Semigroup;
+use crate::Semigroup;
 use std::boxed::Box;
 
 impl<'a> Semigroup for &'a str {
@@ -73,7 +73,7 @@ impl <A: Semigroup> Semigroup for Box<A> {
 
 #[cfg(test)]
 mod test {
-  use crate::fun::Semigroup;
+  use crate::Semigroup;
 
   #[test]
   fn i32() {
