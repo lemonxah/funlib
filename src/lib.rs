@@ -64,7 +64,7 @@ pub trait Monoid: Semigroup {
 }
 
 #[allow(non_snake_case)]
-mod Foldable { 
+pub mod Foldable { 
   use crate::{HKST, HKT, Monoid};
   pub trait FoldableA<'r, A: 'r>: HKST<'r, A> {
     fn fold<F>(&'r self, z: A, f: F) -> A where F: FnMut(A, &A) -> A;
