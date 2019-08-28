@@ -56,27 +56,40 @@ pub trait Monad<B>: Applicative<B> {
 }
 
 pub trait Semigroup: Clone {
-  fn mappend(self: &Self, other: &Self) -> Self;
+  fn mappend(&self, other: &Self) -> Self;
 }
 
 pub trait Monoid: Semigroup {
   fn mempty() -> Self;
 }
 
-pub trait FoldableA<'r, A: 'r>: HKST<'r, A> {
-  fn fold<F>(self: &'r Self, z: A, f: F) -> A where F: FnMut(A, &A) -> A;
-  fn concat<B,F>(self: &'r Self) -> A where A: Monoid { self.fold(A::mempty(), |a,b| A::mappend(&a, b)) }
-  fn find<F>(self: &'r Self, f: F) -> Option<&A> where F: Fn(&A) -> bool;
-  fn all<F>(self: &'r Self, f: F) -> bool where F: Fn(&A) -> bool;
-  fn any<F>(self: &'r Self, f: F) -> bool where F: Fn(&A) -> bool;
-  fn filter<F>(self: &'r Self, f: F) -> Self::M where F: Fn(&A) -> bool;
-  fn is_empty(self: &'r Self) -> bool;
-}
+#[allow(non_snake_case)]
+mod Foldable { 
+  use crate::{HKST, HKT, Monoid};
+  pub trait FoldableA<'r, A: 'r>: HKST<'r, A> {
+    fn fold<F>(&'r self, z: A, f: F) -> A where F: FnMut(A, &A) -> A;
+    fn concat(&'r self) -> A where A: Monoid { self.fold(A::mempty(), |a,b| A::mappend(&a, b)) }
+    fn find<F>(&'r self, f: F) -> Option<&A> where F: Fn(&A) -> bool;
+    fn all<F>(&'r self, f: F) -> bool where F: Fn(&A) -> bool;
+    fn any<F>(&'r self, f: F) -> bool where F: Fn(&A) -> bool;
+    fn filter<F>(&'r self, f: F) -> Self::M where F: Fn(&A) -> bool;
+    fn is_empty(&'r self) -> bool;
+  }
 
-pub trait FoldableB<B>: HKT<B> {
-  fn fold_right<F>(&self, z: B, f: F) -> B where F: Fn(&Self::A, B) -> B;
-  fn fold_left<F>(&self, z: B, f: F) -> B where F: Fn(B, &Self::A) -> B;
-  fn fold_map<F>(&self, f: F) -> B where F: Fn(&Self::A) -> B, B: Monoid { self.fold_left(B::mempty(), |b, a| B::mappend(&b, &f(&a))) }
+  pub trait FoldableS<'r, A: 'r>: HKST<'r, A> {
+    fn fold<F>(&'r self, z: A, f: F) -> A where F: Fn(&A) -> A;
+    fn find<F>(&'r self, f: F) -> Option<&A> where F: Fn(&A) -> bool;
+    fn all<F>(&'r self, f: F) -> bool where F: Fn(&A) -> bool;
+    fn any<F>(&'r self, f: F) -> bool where F: Fn(&A) -> bool;
+    fn filter<F>(&'r self, f: F) -> Self::M where F: Fn(&A) -> bool;
+    fn is_empty(&'r self) -> bool;
+  }
+
+  pub trait FoldableB<B>: HKT<B> {
+    fn fold_right<F>(&self, z: B, f: F) -> B where F: Fn(&Self::A, B) -> B;
+    fn fold_left<F>(&self, z: B, f: F) -> B where F: Fn(B, &Self::A) -> B;
+    fn fold_map<F>(&self, f: F) -> B where F: Fn(&Self::A) -> B, B: Monoid { self.fold_left(B::mempty(), |b, a| B::mappend(&b, &f(&a))) }
+  }
 }
 
 #[allow(unused_macros)]

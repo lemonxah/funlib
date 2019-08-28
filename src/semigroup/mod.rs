@@ -1,62 +1,35 @@
 use crate::Semigroup;
 use std::boxed::Box;
 
+macro_rules! semigroup {
+  ($t:ident, $a:ident, $b:ident, $v:expr) => {
+    impl Semigroup for $t {
+      fn mappend($a: &Self, $b: &Self) -> Self {
+        $v
+      }
+    }
+  }
+}
+
 impl<'a> Semigroup for &'a str {
-  fn mappend(self: &Self, other: &Self) -> Self {
+  fn mappend(&self, other: &Self) -> Self {
     Box::leak(format!("{}{}",*self, *other).into_boxed_str())
   }
 }
 
-impl Semigroup for i8 {
-  fn mappend(self: &Self, other: &Self) -> Self {
-    self + other
-  }
-}
-
-impl Semigroup for i16 {
-  fn mappend(self: &Self, other: &Self) -> Self {
-    self + other
-  }
-}
-
-impl Semigroup for i32 {
-  fn mappend(self: &Self, other: &Self) -> Self {
-    self + other
-  }
-}
-
-impl Semigroup for i64 {
-  fn mappend(self: &Self, other: &Self) -> Self {
-    self + other
-  }
-}
-
-impl Semigroup for u8 {
-  fn mappend(self: &Self, other: &Self) -> Self {
-    self + other
-  }
-}
-
-impl Semigroup for u16 {
-  fn mappend(self: &Self, other: &Self) -> Self {
-    self + other
-  }
-}
-
-impl Semigroup for u32 {
-  fn mappend(self: &Self, other: &Self) -> Self {
-    self + other
-  }
-}
-
-impl Semigroup for u64 {
-  fn mappend(self: &Self, other: &Self) -> Self {
-    self + other
-  }
-}
+semigroup!(i8, self, o, self + o);
+semigroup!(i16, self, o, self + o);
+semigroup!(i32, self, o, self + o);
+semigroup!(i64, self, o, self + o);
+semigroup!(u8, self, o, self + o);
+semigroup!(u16, self, o, self + o);
+semigroup!(u32, self, o, self + o);
+semigroup!(u64, self, o, self + o);
+semigroup!(f32, self, o, self + o);
+semigroup!(f64, self, o, self + o);
 
 impl<A: Semigroup> Semigroup for Option<A> {
-  fn mappend(self: &Self, other: &Self) -> Self {
+  fn mappend(&self, other: &Self) -> Self {
     match (self, other) {
       (&None, b) => b.clone(),
       (a, &None) => a.clone(),
@@ -66,7 +39,7 @@ impl<A: Semigroup> Semigroup for Option<A> {
 }
 
 impl <A: Semigroup> Semigroup for Box<A> {
-  fn mappend(self: &Self, other: &Self) -> Self {
+  fn mappend(&self, other: &Self) -> Self {
     Box::new(self.as_ref().mappend(other.as_ref()))
   }
 }

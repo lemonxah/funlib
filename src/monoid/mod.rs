@@ -1,52 +1,23 @@
 use crate::Monoid;
 
-impl Monoid for i8 {
-  fn mempty() -> Self {
-    0
+macro_rules! monoid {
+  ($t:ident, $v:expr) => {
+    impl Monoid for $t {
+      fn mempty() -> Self { $v }
+    }
   }
 }
 
-impl Monoid for i16 {
-  fn mempty() -> Self {
-    0
-  }
-}
-
-impl Monoid for i32 {
-  fn mempty() -> Self {
-    0
-  }
-}
-
-impl Monoid for i64 {
-  fn mempty() -> Self {
-    0
-  }
-}
-
-impl Monoid for u8 {
-  fn mempty() -> Self {
-    0
-  }
-}
-
-impl Monoid for u16 {
-  fn mempty() -> Self {
-    0
-  }
-}
-
-impl Monoid for u32 {
-  fn mempty() -> Self {
-    0
-  }
-}
-
-impl Monoid for u64 {
-  fn mempty() -> Self {
-    0
-  }
-}
+monoid!(i8, 0);
+monoid!(i16, 0);
+monoid!(i32, 0);
+monoid!(i64, 0);
+monoid!(u8, 0);
+monoid!(u16, 0);
+monoid!(u32, 0);
+monoid!(u64, 0);
+monoid!(f32, 0.0);
+monoid!(f64, 0.0);
 
 impl<A: Monoid> Monoid for Option<A> {
   fn mempty() -> Self {

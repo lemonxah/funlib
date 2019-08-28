@@ -1,7 +1,7 @@
 [package]
 name = "funlib"
 description = "Rust functional library"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["lemonxah <lemon.xah@gmail.com>"]
 edition = "2018"
 license = "Apache-2.0"
