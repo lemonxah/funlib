@@ -50,9 +50,7 @@ pub trait Monad<B>: Applicative<B> {
   fn return_(v: B) -> Self::M where Self: HKT<B, A=B> {
     Self::pure_(v)
   }
-  fn fmap<F>(&self, f: F) -> Self::M where F: Fn(&Self::A) -> B, Self: HKT<B, A=B> {
-    Self::bind(self, |a| Self::pure_(f(a)))
-  }
+  fn fmap<F>(&self, f: F) -> Self::M where F: Fn(&Self::A) -> B, Self: Functor<B> {Functor::fmap(self, f)}
 }
 
 pub trait Semigroup: Clone {

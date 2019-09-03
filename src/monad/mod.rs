@@ -40,6 +40,8 @@ mod test {
 
   #[test]
   fn option() {
+    assert_eq!(Some("hello"), Some(5).fmap(|_i| "hello"));
+    assert_eq!(Option::<i32>::return_(10), Some(5).bind(|i| Some(i * 1)).fmap(|i| i * 2));
     assert_eq!(Option::<i32>::return_(10), Some(5).bind(|i| Some(i * 2)));
   }
 
