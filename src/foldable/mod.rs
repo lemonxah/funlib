@@ -50,12 +50,12 @@ impl <'r,A: 'r> FoldableS<'r, A> for Option<A> {
     self.iter().any(f)
   }
   fn filter<F>(&'r self, f: F) -> Self::M where F: Fn(&A) -> bool {
-    self.iter().filter(|a| f(a)).next()
+    self.iter().find(|a| f(a))
   }
   fn find<F>(&'r self, f: F) -> Option<&A> where F: Fn(&A) -> bool {
     self.iter().find(|a| f(a))
   }
-  fn is_empty(&'r self) -> bool { match self { Some(_) => false, None => true, } }
+  fn is_empty(&'r self) -> bool { self.is_none() }
 }
 
 #[cfg(test)]
