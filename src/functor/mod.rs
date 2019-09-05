@@ -1,3 +1,7 @@
+//!
+//! Functor implementations and tests
+//! 
+
 use crate::Functor;
 use std::vec::Vec;
 use std::boxed::Box;
@@ -33,20 +37,19 @@ impl<A,B> Functor<B> for Vec<A> {
     result
   }
 }
-#[macro_use]
+
 #[cfg(test)]
 mod test {
   use crate::Functor;
   use std::rc::Rc;
   use std::boxed::Box;
 
-  #[macro_use]
   #[cfg(test)]
   mod laws {
-    use crate::compose_two;
     use crate::Functor;
     use std::rc::Rc;
     use std::boxed::Box;
+  
     fn id<A>(v: A) -> A { v } 
     macro_rules! laws {
       ($t: ident, $v: expr, $f: expr, $f2: expr) => {
@@ -54,7 +57,7 @@ mod test {
         #[test]
         fn $t() {
           assert_eq!($v, $v.fmap(|x| *id(x)));
-          assert_eq!($v.fmap(|x| compose_two($f, $f2)(x)), $v.fmap($f).fmap($f2))
+          assert_eq!($v.fmap(|x| compose!($f, $f2)(x)), $v.fmap($f).fmap($f2))
         }
       };
     }

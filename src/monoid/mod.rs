@@ -1,3 +1,7 @@
+//!
+//! Monoid implementations and tests
+//! 
+
 use crate::Monoid;
 
 macro_rules! monoid {

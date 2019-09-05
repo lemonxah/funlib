@@ -1,3 +1,7 @@
+//!
+//! Semigroup implementations and tests
+//! 
+
 use crate::Semigroup;
 use std::boxed::Box;
 

@@ -1,3 +1,6 @@
+//!
+//! Applicative implementations and tests
+//! 
 use crate::Applicative;
 use crate::HKT;
 use std::rc::Rc;
@@ -54,22 +57,27 @@ mod test {
   use crate::Applicative;
   use std::rc::Rc;
 
+  fn double(i: &i32) -> i32 { i * 2 }
+
   #[test]
   fn option() {
     let f: &dyn Fn(&i32) -> i32 = &|x| x * 2;
     assert_eq!(Some(4), Some(2).ap(Some(f)));
+    assert_eq!(Some(4), Some(2).ap(Some(&double)));
   }
 
   #[test]
   fn box_() {
     let f: &dyn Fn(&i32) -> i32 = &|x| x * 2;
     assert_eq!(Box::new(4), Box::new(2).ap(Box::new(f)));
+    assert_eq!(Box::new(4), Box::new(2).ap(Box::new(&double)));
   }
 
   #[test]
   fn rc() {
     let f: &dyn Fn(&i32) -> i32 = &|x| x * 2;
     assert_eq!(Rc::new(4), Rc::new(2).ap(Rc::new(f)));
+    assert_eq!(Rc::new(4), Rc::new(2).ap(Rc::new(&double)));
   }
 
   #[test]
