@@ -220,6 +220,18 @@ pub mod Foldable {
     /// assert_eq!(true, v2.is_empty());
     /// ```
     fn is_empty(&'r self) -> bool;
+    /// Checks if the foldable is non empty
+    /// 
+    /// # Examples
+    /// 
+    /// ```
+    /// use funlib::Foldable::*;
+    /// let v = vec![1,2,3,4];
+    /// let v2: Vec<i32> = vec![];
+    /// assert_eq!(true, v.non_empty());
+    /// assert_eq!(false, v2.non_empty());
+    /// ```
+    fn non_empty(&'r self) -> bool { !self.is_empty() }
   }
 
   /// FoldableS is for Foldables that is not a list of some kind, ex. Option
@@ -236,6 +248,8 @@ pub mod Foldable {
     fn filter<F>(&'r self, f: F) -> Self::M where F: Fn(&A) -> bool;
     /// Checks if the foldable is empty
     fn is_empty(&'r self) -> bool;
+    /// Checks if the foldable is non empty.
+    fn non_empty(&'r self) -> bool { !self.is_empty() }
   }
 
   /// FoladableB is for Hinger Kinded Types where M<A> -> B / M<B>
