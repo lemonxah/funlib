@@ -1,6 +1,6 @@
 //!
 //! Monoid implementations and tests
-//! 
+//!
 
 use crate::Monoid;
 
@@ -71,7 +71,7 @@ mod test {
           assert_eq!($v.mappend(&$v2.mappend(&$v3)),($v.mappend(&$v2)).mappend(&$v3));
         }
       };
-    }    
+    }
     laws!(i32, 5i32, 6i32, 10i32);
     laws!(u64, 5u64, 6u64, 10u64);
     laws2!(Option, u8, Some(5u8), Some(6u8), Some(10u8));

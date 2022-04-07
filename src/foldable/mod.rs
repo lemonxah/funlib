@@ -1,7 +1,7 @@
 //!
 //! Foldable implementations and tests
-//! 
-//! 
+//!
+//!
 use crate::Foldable::*;
 
 impl <A, B> FoldableB<B> for Vec<A> {

@@ -1,6 +1,6 @@
 //!
 //! Macros for use with the functional library
-//! 
+//!
 
 /// Derive HKT macro to create Higer Kinded Types
 #[macro_export]
@@ -13,20 +13,20 @@ macro_rules! derive_hkt {
     impl<'a, B: 'a> HKST<'a, B> for $t<B> {
       type A = &'a B;
       type M = $t<&'a B>;
-    }  
+    }
   };
 }
 
-/// Compose functions 
-/// 
+/// Compose functions
+///
 /// # Examples
-/// 
+///
 // / ```
 // / # #[macro_use] extern crate funlib;
 // / # fn main() {
 // / fn add1(i: i32) -> i32 { i + 1 }
 // / fn double(i: i32) -> i32 { i * 2 }
-// / 
+// /
 // / let c = compose!(add1, double);
 // / assert_eq!(4, c(1));
 // / # }

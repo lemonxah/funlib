@@ -1,6 +1,6 @@
 //!
 //! Functor implementations and tests
-//! 
+//!
 
 use crate::Functor;
 use std::vec::Vec;
@@ -49,8 +49,8 @@ mod test {
     use crate::Functor;
     use std::rc::Rc;
     use std::boxed::Box;
-  
-    fn id<A>(v: A) -> A { v } 
+
+    fn id<A>(v: A) -> A { v }
     macro_rules! laws {
       ($t: ident, $v: expr, $f: expr, $f2: expr) => {
         #[allow(non_snake_case)]

@@ -1,6 +1,6 @@
 //!
 //! Monad implementations and tests
-//! 
+//!
 
 use crate::Monad;
 use std::boxed::Box;

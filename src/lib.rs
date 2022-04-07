@@ -1,26 +1,26 @@
 //! Functional Libary for Rust
-//! 
+//!
 //! This is still a work in progess..
-//!  
+//!
 //! Functor
-//! 
+//!
 //! ```
 //! use funlib::Functor;
-//! 
+//!
 //! let s = Some(3).fmap(|&a| a * 2); // this will produce Some(6)
-//! 
+//!
 //! ```
-//! 
-//! Monad 
-//! 
+//!
+//! Monad
+//!
 //! ```
 //! use funlib::Monad;
-//! 
+//!
 //! let s = Some(3).bind(|&a| Some(a * 2)); // this will produce Some(6)
-//! 
+//!
 //! ```
-//! 
-//! 
+//!
+//!
 
 #![deny(missing_docs)]
 #[macro_use] pub mod macros;
@@ -67,7 +67,7 @@ pub trait Functor<B>: HKT<B> {
 /// Applicative type class
 pub trait Applicative<B>: Functor<B> {
   /// Lift values into the context of the Functor
-  /// 
+  ///
   /// # Examples
   /// ```
   /// use funlib::Applicative;
@@ -77,7 +77,7 @@ pub trait Applicative<B>: Functor<B> {
   /// ```
   fn pure_(value: B) -> Self::M where Self: HKT<B, A=B>;
   /// Apply function is almost the same as Functor map. but the function isn't A => B but A<F => B>
-  /// 
+  ///
   /// # Examples
   /// ```
   /// use funlib::Applicative;
@@ -93,7 +93,7 @@ pub trait Applicative<B>: Functor<B> {
 /// Monad type class
 pub trait Monad<B>: Applicative<B> {
   /// Bind works like map but it flattens nested structures
-  /// 
+  ///
   /// # Examples
   /// ```
   /// use funlib::Applicative;
@@ -109,10 +109,10 @@ pub trait Monad<B>: Applicative<B> {
 
 /// Semigroup type class
 pub trait Semigroup: Clone {
-  /// combine 2 of the same type 
-  /// 
+  /// combine 2 of the same type
+  ///
   /// # Examples
-  /// 
+  ///
   /// ```
   /// use funlib::Semigroup;
   /// assert_eq!(4i32, 1i32.mappend(&3i32));
@@ -124,9 +124,9 @@ pub trait Semigroup: Clone {
 /// Monoid type class extends the Semigroup and adds an empty function for the type
 pub trait Monoid: Semigroup {
   /// empty function same as Default
-  /// 
+  ///
   /// # Examples
-  /// 
+  ///
   /// ```
   /// use funlib::{Monoid, Semigroup, Foldable::*};
   /// let sum = vec![1i32,2i32,3i32,4i32].fold(i32::mempty(), |b,a| i32::mappend(&b, a));
@@ -138,14 +138,14 @@ pub trait Monoid: Semigroup {
 
 /// Foldable mod containing the foldable type classes
 #[allow(non_snake_case)]
-pub mod Foldable { 
+pub mod Foldable {
   use crate::{HKST, HKT, Monoid};
   /// FoladableA is for endo type functions
   pub trait FoldableA<'r, A: 'r>: HKST<'r, A> {
     /// Reduces the values of the Foldable into a single value
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// let v = vec![1,2,3,4];
@@ -155,7 +155,7 @@ pub mod Foldable {
     fn fold<F>(&'r self, z: A, f: F) -> A where F: FnMut(A, &A) -> A;
     /// Using a Monoid reduce the values in the Foldable to a single value
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// let v = vec![1,2,3,4];
@@ -164,9 +164,9 @@ pub mod Foldable {
     /// ```
     fn concat(&'r self) -> A where A: Monoid { self.fold(A::mempty(), |a,b| A::mappend(&a, b)) }
     /// Find a value in the foldable, returns an Option<&_>
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// let v = vec![1,2,3,4];
@@ -177,9 +177,9 @@ pub mod Foldable {
     /// ```
     fn find<F>(&'r self, f: F) -> Option<&A> where F: Fn(&A) -> bool;
     /// Check if all values in the foldable returns true for function f
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// let v = vec![1,2,3,4];
@@ -188,9 +188,9 @@ pub mod Foldable {
     /// ```
     fn all<F>(&'r self, f: F) -> bool where F: Fn(&A) -> bool;
     /// Check if any valu ein the foldable returns true for function f
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// let v = vec![1,2,3,4];
@@ -199,9 +199,9 @@ pub mod Foldable {
     /// ```
     fn any<F>(&'r self, f: F) -> bool where F: Fn(&A) -> bool;
     /// Filters the foldable for values that meet the predicate
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// let v = vec![1,2,3,4];
@@ -209,9 +209,9 @@ pub mod Foldable {
     /// ```
     fn filter<F>(&'r self, f: F) -> Self::M where F: Fn(&A) -> bool;
     /// Checks if the foldable is empty
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// let v = vec![1,2,3,4];
@@ -221,9 +221,9 @@ pub mod Foldable {
     /// ```
     fn is_empty(&'r self) -> bool;
     /// Checks if the foldable is non empty
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// let v = vec![1,2,3,4];
@@ -255,9 +255,9 @@ pub mod Foldable {
   /// FoladableB is for Hinger Kinded Types where M<A> -> B / M<B>
   pub trait FoldableB<B>: HKT<B> {
     /// Reduces the values of the Foldable into a single value
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// #[derive(Debug, PartialEq)]
@@ -268,9 +268,9 @@ pub mod Foldable {
     /// ```
     fn fold_right<F>(&self, z: B, f: F) -> B where F: Fn(&Self::A, B) -> B;
     /// Reduces the values of the Foldable into a single value
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use funlib::Foldable::*;
     /// #[derive(Debug, PartialEq)]
