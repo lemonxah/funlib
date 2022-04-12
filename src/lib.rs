@@ -21,9 +21,9 @@
 //! ```
 //!
 //!
-
+//! 
 #![deny(missing_docs)]
-#[macro_use] pub mod macros;
+#[macro_use] extern crate funlib_macros;
 pub mod functor;
 pub mod applicative;
 pub mod monad;
@@ -47,10 +47,10 @@ pub trait HKST<'a, B> {
   type M;
 }
 
-derive_hkt!(Vec);
-derive_hkt!(Option);
-derive_hkt!(Box);
-derive_hkt!(Rc);
+hkt!(Vec);
+hkt!(Option);
+hkt!(Box);
+hkt!(Rc);
 
 /// Functor type class
 pub trait Functor<B>: HKT<B> {

@@ -28,12 +28,8 @@ impl<A, B> Monad<B> for Rc<A> {
 }
 
 impl<A, B> Monad<B> for Vec<A> {
-  fn bind<F>(&self, mut f: F) -> Vec<B> where F: FnMut(&A) -> Vec<B> {
-    let mut result = vec![];
-    for v in self {
-      result.extend(f(v));
-    }
-    result
+  fn bind<F>(&self, f: F) -> Vec<B> where F: FnMut(&A) -> Vec<B> {
+    self.iter().flat_map(f).collect()
   }
 }
 

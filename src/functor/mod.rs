@@ -30,11 +30,7 @@ impl<A,B> Functor<B> for Rc<A> {
 
 impl<A,B> Functor<B> for Vec<A> {
   fn fmap<F>(&self, f: F) -> Vec<B> where F: Fn(&A) -> B {
-    let mut result = Vec::with_capacity(self.len());
-    for val in self {
-      result.push(f(val));
-    }
-    result
+    self.iter().map(f).collect()
   }
 }
 
