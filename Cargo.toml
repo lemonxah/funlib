@@ -3,13 +3,13 @@ name = "funlib"
 description = "Rust functional library"
 version = "0.1.8"
 authors = ["lemonxah <lemon.xah@gmail.com>"]
-edition = "2018"
+edition = "2021"
 license = "Apache-2.0"
 homepage = "https://github.com/lemonxah/funlib"
-documentation = "https://docs.rs/funlib/0.1.6/funlib/"
+documentation = "https://docs.rs/funlib/0.1.8/funlib/"
 repository = "https://github.com/lemonxah/funlib"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [workspaces]
 
 [dependencies]
-funlib-macros = { version = "0.1.7", path = "macros" }
+funlib-macros = { version = "0.1.8", path = "macros" }
