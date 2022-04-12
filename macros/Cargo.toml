@@ -1,5 +1,6 @@
 [package]
 name = "funlib-macros"
+description = "Rust functional library macros"
 version = "0.1.8"
 edition = "2021"
 authors = ["lemonxah <lemon.xah@gmail.com>"]
